@@ -4,38 +4,39 @@
 #include "Timer.h"
 #include "util.h"
 #include "SerialHardware.h"
-#include "LCDI2C.h"
+#include "SPI.h"
+
 
 int main()
 {
+
+//  SPI spi(SPI1, PINREMAP);
+//  spi.start(SPI_BRRDIV16);
+//  spi.softPin(GPIOA, P09);
+//  spi.setDataF(SPI_DATA16);
+
+//GPIO_Config(GPIOB, 0xFFFF, MODE_OUT_50MHZ);
+//GPIOB->BSRR |= 0xFFFF;
   Serial2.Init(921600);
-  LCD_I2C lcd(0x27);
-  lcd.Init();
-  // At this stage the system clock should have already been configured
-  // at high speed.
-  //GPIO_Config(GPIOA, P06 | P07, MODE_OUT_50MHZ, CNF_OUT_AFOD);
-  //lcd.print("stared3");
-  // Infinite loop
-  // Serial2.println("Adress:0x", I2C1Comm.I2CScan(), HEX);
 
-  uint8_t n = 0;
   while (1)
-
   {
-    lcd.print(n++);
+//    spi.chipSelect(LOW);
+//    spi.send16Byte(0x0F01);
+//    spi.chipSelect(HIGH);
+//    delayMillis(100);
+//
+//    spi.chipSelect(LOW);
+//    spi.send16Byte(0x0F00);
+//    spi.chipSelect(HIGH);
+//
 
-    Serial2.print(n);
-    Serial2.println();
-    // Serial2.println("hla");
-//    if (Serial2.hasData())
-//    {
-//      Serial2.print(Serial2.readByte());
-//    }
-//    GPIOC->BSRR |= P13;
-//    // delayMillis(500);
-//    GPIOC->BRR |= P13;
-    // delayMillis(1);
-    // Add your code here.
+//    GPIOB->BRR |= 0xFFFF;
+//    delayMillis(500);
+//    GPIOB->BSRR |= 0xFFFF;
+//    delayMillis(500);
   }
+
+
 }
 

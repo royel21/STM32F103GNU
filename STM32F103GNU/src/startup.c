@@ -13,6 +13,7 @@ void startup()
 {
   //Start Systick Timer at 1ms
   Systick_Startup();
+  AFIO->MAPR |= AFIO_MAPR_SWJ_CFG_JTAGDISABLE; //0x‭2000000‬
 
 }
 
