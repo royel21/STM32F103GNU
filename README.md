@@ -1,2 +1,2 @@
 # STM32F103GNU
-STM32F103 lightweight firmware
+new stm32f103c8t6 library writen to be the most lightweight posible
