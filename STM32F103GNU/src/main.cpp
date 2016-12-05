@@ -15,9 +15,9 @@ int main()
 //  spi.softPin(GPIOA, P09);
 //  spi.setDataF(SPI_DATA16);
 
-//GPIO_Config(GPIOB, 0xFFFF, MODE_OUT_50MHZ);
-//GPIOB->BSRR |= 0xFFFF;
-  Serial2.Init(921600);
+  GPIO_Config(GPIOB, 0xFFFF, MODE_OUT_50MHZ);
+  GPIOB->BSRR |= 0xFFFF;
+//  Serial2.Init(921600);
 
   while (1)
   {
@@ -31,10 +31,10 @@ int main()
 //    spi.chipSelect(HIGH);
 //
 
-//    GPIOB->BRR |= 0xFFFF;
-//    delayMillis(500);
-//    GPIOB->BSRR |= 0xFFFF;
-//    delayMillis(500);
+    GPIOB->BRR |= 0xFFFF;
+    delayMillis(500);
+    GPIOB->BSRR |= 0xFFFF;
+    delayMillis(500);
   }
 
 
