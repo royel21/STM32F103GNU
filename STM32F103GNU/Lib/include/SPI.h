@@ -20,7 +20,8 @@
 #define SPI_BRRDIV64     (uint8_t)0x05
 #define SPI_BRRDIV128    (uint8_t)0x06
 #define SPI_BRRDIV256    (uint8_t)0x07
-#define SPI_DIR_TX       (uint8_t)0x01
+#define SPI_BIDI_TX       (uint8_t)0x01
+#define SPI_BIDI_RX       (uint8_t)0x01
 #define SPI_DATA16       (uint8_t)0x01
 #define SPI_DATA8       (uint8_t)0x00
 
@@ -35,6 +36,7 @@ class SPI
     SPI(SPI_TypeDef *spi, uint8_t remap = 0);
     void setCPOL(uint8_t cpol);
     void setCPHA(uint8_t cpha);
+    void setBidiTX(uint8_t bidi);
     void setDataF(uint8_t FORMAT);
     void start(uint8_t brControl, uint8_t bidi = 0);
     void softPin(GPIO_TypeDef *port, uint16_t pin);

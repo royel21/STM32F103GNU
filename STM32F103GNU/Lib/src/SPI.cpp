@@ -19,6 +19,7 @@ SPI::SPI(SPI_TypeDef *spi, uint8_t remap)
     this->SPIx = SPI1;
     if (remap)
     {
+      AFIO->MAPR |= AFIO_MAPR_SPI1_REMAP;
       GPIO_Config(GPIOB, P03 | P04 | P05, MODE_OUT_50MHZ, CNF_OUT_AFPP);
     } else
     {
@@ -39,8 +40,13 @@ void SPI::start(uint8_t brr, uint8_t bidi)
   {
     SPIx->CR1 |= SPI_CR1_BIDIMODE | SPI_CR1_BIDIOE;
   }
-  SPIx->CR1 |= SPI_CR1_SSM | SPI_CR1_SSI | (brr << 3);
+  SPIx->CR1 |= SPI_CR1_SSM | SPI_CR1_SSI | (brr << 3) | SPI_CR1_MSTR;
   SPIx->CR1 |= SPI_CR1_SPE;
+}
+
+void SPI::setBidiTX(uint8_t bidi)
+{
+  //cpha ? SPIx->CR1 |= SPI_CR1_SPE | SPI_CR1_CPHA : SPIx->CR1 &= ~SPI_CR1_CPHA;
 }
 
 void SPI::setCPHA(uint8_t cpha)
@@ -83,13 +89,17 @@ uint8_t SPI::send8Byte(uint8_t Byte)
   SPIx->DR = Byte;
   while ((SPIx->SR & SPI_SR_TXE) == RESET)
     ;
+  while ((SPIx->SR & SPI_SR_RXNE) == RESET)
+    ;
   return SPIx->DR & 0xFF;
 }
 
 uint16_t SPI::send16Byte(uint16_t word)
 {
-  SPIx->DR = word;
   while ((SPIx->SR & SPI_SR_TXE) == RESET)
+    ;
+  SPIx->DR = word;
+  while ((SPIx->SR & SPI_SR_RXNE) == RESET)
     ;
   return SPIx->DR & 0xFFFF;
 }
