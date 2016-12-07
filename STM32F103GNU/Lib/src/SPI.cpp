@@ -7,7 +7,7 @@
 
 #include "SPI.h"
 
-SPI::SPI(SPI_TypeDef *spi, uint8_t bidi, uint8_t remap)
+SPI::SPI(SPI_TypeDef *spi, uint8_t remap)
 {
   PORT = 0;
   PIN = 0;
@@ -31,10 +31,6 @@ SPI::SPI(SPI_TypeDef *spi, uint8_t bidi, uint8_t remap)
     RCC->APB1ENR |= RCC_APB1ENR_SPI2EN;
     GPIO_Config(GPIOB, P13 | P14 | P15, MODE_OUT_50MHZ, CNF_OUT_AFPP);
   }
-  if (bidi)
-  {
-    SPIx->CR1 |= SPI_CR1_BIDIMODE | SPI_CR1_BIDIOE;
-  }
   SPIx->CR1 |= SPI_CR1_SSM | SPI_CR1_SSI | SPI_CR1_MSTR;
   SPIx->CR1 |= SPI_CR1_SPE;
 }
@@ -43,16 +39,17 @@ void SPI::setBaudRateControl(uint8_t brc)
   SPIx->CR1 &= ~(7 << 3);
   SPIx->CR1 |= (brc << 3);
 }
-void SPI::setBidiTX(uint8_t enable)
+void SPI::setBidi(uint8_t enable, uint8_t dir)
 {
   if (enable)
   {
-    SPIx->CR1 |= SPI_CR1_BIDIMODE | SPI_CR1_BIDIOE;
+
+    SPIx->CR1 |= SPI_CR1_BIDIMODE;                                        // set bidirectional enable
+    dir ? SPIx->CR1 |= SPI_CR1_BIDIOE : SPIx->CR1 &= ~SPI_CR1_BIDIOE;      // if dir = 1 transmit only else receive only
   } else
   {
     SPIx->CR1 &= ~(SPI_CR1_BIDIMODE | SPI_CR1_BIDIOE);
   }
-
 }
 
 void SPI::setCPHA(uint8_t cpha)
@@ -91,11 +88,11 @@ void SPI::chipSelect(uint8_t ss)
 
 uint8_t SPI::send8Byte(uint8_t byte)
 {
-
   while (!(SPIx->SR & SPI_SR_TXE))
     ;
   SPIx->DR = byte;
   byte = SPIx->DR & 0xFFFF;
+
   while ((SPIx->SR & SPI_SR_RXNE) == RESET)
     ;
   return byte;

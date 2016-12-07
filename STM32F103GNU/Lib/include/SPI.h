@@ -33,10 +33,10 @@ class SPI
     uint16_t PIN;
     GPIO_TypeDef *PORT;
   public:
-    SPI(SPI_TypeDef *spi, uint8_t bidi = 0, uint8_t remap = 0);
+    SPI(SPI_TypeDef *spi, uint8_t remap = 0);
     void setCPOL(uint8_t cpol);
     void setCPHA(uint8_t cpha);
-    void setBidiTX(uint8_t bidi);
+    void setBidi(uint8_t bidi, uint8_t dir);
     void setDataF(uint8_t FORMAT);
     void setBaudRateControl(uint8_t brc);
     void softPin(GPIO_TypeDef *port, uint16_t pin);
