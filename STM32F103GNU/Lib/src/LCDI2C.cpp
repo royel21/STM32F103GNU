@@ -11,6 +11,7 @@ LCD_I2C::LCD_I2C(uint8_t addr)
   address = addr;
   cmd = 0x0C;
   blackLightState = 0x08;
+	I2CCom.init();
 }
 
 void LCD_I2C::Init()
@@ -33,9 +34,9 @@ void LCD_I2C::Init()
 }
 void LCD_I2C::Write4Bits(uint8_t data)
 {
-  I2C1Comm.WriteTo(address, data | EnON | blackLightState);
+	I2CCom.WriteTo(address, data | EnON | blackLightState);
   delayMicros(1);
-  I2C1Comm.WriteTo(address, (data | blackLightState) & ~EnON);
+	I2CCom.WriteTo(address, (data | blackLightState) & ~EnON);
   delayMicros(1);
 }
 
@@ -78,7 +79,7 @@ void LCD_I2C::autoScroll(uint8_t on)
 void LCD_I2C::blackLight(const uint8_t state)
 {
   blackLightState = state << 3;
-  I2C1Comm.WriteTo(address, blackLightState);
+	I2CCom.WriteTo(address, blackLightState);
 }
 void LCD_I2C::Clear()
 {

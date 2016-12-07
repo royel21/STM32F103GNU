@@ -8,7 +8,7 @@
 #ifndef LCDI2C_H_
 #define LCDI2C_H_
 
-#include "I2CSerialComm.h"
+#include <I2CCOM.h>
 #include "Timer.h"
 #include "define.h"
 #include "Printer.h"

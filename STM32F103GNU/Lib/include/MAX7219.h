@@ -18,13 +18,14 @@
 class MAX7219
 {
 	public:
-		MAX7219(SPI *spi);
+		MAX7219(SPI *spi, GPIO_TypeDef *port, uint16_t pin);
 		void write(uint8_t addr, uint8_t data);
+		void writeData(const uint8_t *word, uint8_t size = 8);
 		void setBrightness(uint8_t b);
 		void setScanDigit(uint8_t d);
 		void setDisplayON(uint8_t state);
-		void setSelfTest(uint8_t state);
-		void writeData(uint8_t *word);
+		void testAllDigit(uint8_t state);
+		void clearALL();
 	private:
 		SPI *SPIx;
 };
