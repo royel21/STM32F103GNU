@@ -5,9 +5,9 @@
  *      Author: Royel
  */
 
-#include <I2CCOM.h>
-#include "define.h"
-#include "Timer.h"
+#include "I2CCOM.h"
+
+
 /*****I2C Flags*****/
 #define  I2C_ACK                  ((uint8_t)0)          /** I2C Write bit **/
 #define  I2C_NACK                 ((uint8_t)1)
@@ -22,6 +22,9 @@
 #define  I2C_EVENT_MBTXG          ((uint32_t)0x00070080) /* TRA, BUSY, MSL, TXE flags */
 /* --EV8_2 */
 #define  I2C_EVENT_MBTXD          ((uint32_t)0x00070084)  /* TRA, BUSY, MSL, TXE and BTF flags */
+
+
+
 
 I2CCOM::I2CCOM(I2C_TypeDef *i2c, uint32_t I2C_SPD, uint8_t remap)
 {
