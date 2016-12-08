@@ -10,6 +10,7 @@
 DS_RTC::DS_RTC(uint8_t addr)
 {
   rtc_addr = addr;
+  I2CCom.init();
 }
 
 uint8_t DS_RTC::bcdToDEC(uint8_t val)

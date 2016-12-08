@@ -22,15 +22,14 @@ class I2CCOM
 	private:
 		uint8_t address;
 		I2C_TypeDef *I2Cx;
-//    uint16_t SDA;
-//    uint16_t CLCK;
-//    void pinToggle();
+    uint16_t SDA;
+    uint16_t CLCK;
+    void pinToggle();
 	public:
 		I2CCOM(I2C_TypeDef *i2c, uint32_t I2C_SPD, uint8_t remap = 0);
 
 		uint8_t Scan();
 		void init();
-		void setAddress(uint8_t);
 		uint8_t Start(uint8_t, uint8_t);
 
 		uint8_t Write(uint8_t);
