@@ -19,18 +19,18 @@ extern "C" {
 #endif
 
 /********************  Bits definition for DMA_SxCR register  *****************/
-#define DMA_SxCR_PL_VH                       ((uint32_t)0x00030000)
-#define DMA_SxCR_PL_M                        ((uint32_t)0x00010000)
-#define DMA_SxCR_PL_H                        ((uint32_t)0x00020000)
-#define DMA_SxCR_MSIZE_8bit                  ((uint32_t)0x00000000)
-#define DMA_SxCR_MSIZE_16bit                 ((uint32_t)0x00002000)
-#define DMA_SxCR_MSIZE_32bit                 ((uint32_t)0x00004000)
-#define DMA_SxCR_PSIZE_8bit                  ((uint32_t)0x00000000)
-#define DMA_SxCR_PSIZE_16bit                 ((uint32_t)0x00000800)
-#define DMA_SxCR_PSIZE_32bit                 ((uint32_t)0x00001000)
-#define DMA_SxCR_DIR_P2M                     ((uint32_t)0x00000000)
-#define DMA_SxCR_DIR_M2P                     ((uint32_t)0x00000040)
-#define DMA_SxCR_DIR_M2M                     ((uint32_t)0x00000080)
+#define DMA_CCR_PL_VH                       ((uint16_t)0x0003000)
+#define DMA_CCR_PL_M                        ((uint16_t)0x0001000)
+#define DMA_CCR_PL_H                        ((uint16_t)0x0002000)
+#define DMA_CCR_MSIZE_8bit                  ((uint16_t)0x0000000)
+#define DMA_CCR_MSIZE_16bit                 ((uint16_t)0x0000400)
+#define DMA_CCR_MSIZE_32bit                 ((uint16_t)0x0000800)
+#define DMA_CCR_PSIZE_8bit                  ((uint16_t)0x0000000)
+#define DMA_CCR_PSIZE_16bit                 ((uint16_t)0x0000100)
+#define DMA_CCR_PSIZE_32bit                 ((uint16_t)0x0000200)
+#define DMA_CCR_DIR_P2M                     ((uint16_t)0x0000000)
+#define DMA_CCR_DIR_M2P                     ((uint16_t)0x0000040)
+#define DMA_CCR_DIR_M2M                     ((uint16_t)0x0000080)
 #define CH00                                 ((uint8_t)0x00)
 #define CH01                                 ((uint8_t)0x01)
 #define CH02                                 ((uint8_t)0x02)
@@ -41,12 +41,6 @@ extern "C" {
 #define CH07                                 ((uint8_t)0x07)
 #define CH08                                 ((uint8_t)0x08)
 #define CH09                                 ((uint8_t)0x09)
-#define CH10                                 ((uint8_t)0x0A)
-#define CH11                                 ((uint8_t)0x0B)
-#define CH12                                 ((uint8_t)0x0C)
-#define CH13                                 ((uint8_t)0x0D)
-#define CH14                                 ((uint8_t)0x0E)
-#define CH15                                 ((uint8_t)0x0F)
 //	uint16_t adcVal = 0;
 void analogReadWithDMAMulti(uint16_t pins, volatile uint16_t *vars, uint8_t size);
 uint16_t analogRead(uint16_t);
