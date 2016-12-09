@@ -1,29 +1,21 @@
-
 #include "Timer.h"
 #include "SerialHardware.h"
-#include "LCDI2C.h"
-#include "I2CCOM.h"
+#include "analog.h"
 
 int main(void)
 {
-//  spi.setBidiMode(SPI_TRANSMIT);
-  Serial2.Init(115200);
-	LCD_I2C lcd(0x27);
-	lcd.Init();
-
-  short b = -9000;
+	ADC adc(ADC1);
+	Serial2.Init(921600);
+	Serial2.println("test");
 	while (1)
 	{
-    lcd.print("test1", b++);
+		float var = 0;
+		long start = micros();
+		var = adc.read(CH0);
+		Serial2.println("Stop:", micros() - start);
+		Serial2.println("Volt:", (var * (3.3 / 4095)) + 0.077);
 
-//		GPIOB->BSRR |= P05 | P04 | P03;
-//
-//		delayMillis(1);
-//		GPIOB->BRR |= P05 | P04 | P03;
-//		delayMillis(1);
-//		matrix.write(15, 0xAA);
-
-
+		delayMillis(200);
 	}
 	return 0;
 }

@@ -8,9 +8,6 @@
 #ifndef ANALOG_H_
 #define ANALOG_H_
 
-
-
-
 #include "cmsis_device.h"
 #include "define.h"
 
@@ -31,19 +28,24 @@ extern "C" {
 #define DMA_CCR_DIR_P2M                     ((uint16_t)0x0000000)
 #define DMA_CCR_DIR_M2P                     ((uint16_t)0x0000040)
 #define DMA_CCR_DIR_M2M                     ((uint16_t)0x0000080)
-#define CH00                                 ((uint8_t)0x00)
-#define CH01                                 ((uint8_t)0x01)
-#define CH02                                 ((uint8_t)0x02)
-#define CH03                                 ((uint8_t)0x03)
-#define CH04                                 ((uint8_t)0x04)
-#define CH05                                 ((uint8_t)0x05)
-#define CH06                                 ((uint8_t)0x06)
-#define CH07                                 ((uint8_t)0x07)
-#define CH08                                 ((uint8_t)0x08)
-#define CH09                                 ((uint8_t)0x09)
-//	uint16_t adcVal = 0;
-void analogReadWithDMAMulti(uint16_t pins, volatile uint16_t *vars, uint8_t size);
-uint16_t analogRead(uint16_t);
+#define CH0                                 ((uint8_t)0x00)
+#define CH1                                 ((uint8_t)0x01)
+#define CH2                                 ((uint8_t)0x02)
+#define CH3                                 ((uint8_t)0x03)
+#define CH4                                 ((uint8_t)0x04)
+#define CH5                                 ((uint8_t)0x05)
+#define CH6                                 ((uint8_t)0x06)
+#define CH7                                 ((uint8_t)0x07)
+#define CH8                                 ((uint8_t)0x08)
+#define CH9                                 ((uint8_t)0x09)
+
+class ADC
+{
+	public:
+		ADC(ADC_TypeDef *ADC);
+		void readWithDMAMulti(uint16_t pins, volatile uint16_t *vars, uint8_t size);
+		uint16_t read(uint16_t);
+};
 
 #ifdef __cplusplus
 }
