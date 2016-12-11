@@ -55,13 +55,13 @@ void LCD_I2C::WriteCmd(uint8_t data)
   Write4Bits(low | RsCmd);
 }
 
-void LCD_I2C::CursorPos(uint8_t col, uint8_t row)
+void LCD_I2C::setPos(uint8_t col, uint8_t row)
 {
   int row_offsets[4] =
     { 0x00, 0x40, 0x14, 0x54 };
   WriteCmd(LCD_SETDDRAMADDR | (col + row_offsets[row]));
 }
-void LCD_I2C::Cursor(uint8_t state)
+void LCD_I2C::setCursor(uint8_t state)
 {
   cmd |= state << 1;
   WriteCmd(cmd);
@@ -76,7 +76,7 @@ void LCD_I2C::autoScroll(uint8_t on)
     WriteCmd(LCD_ENTRYMODESET);
   }
 }
-void LCD_I2C::blackLight(const uint8_t state)
+void LCD_I2C::setBlackLight(const uint8_t state)
 {
   blackLightState = state << 3;
 	I2CCom.WriteTo(address, blackLightState);

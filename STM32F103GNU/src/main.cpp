@@ -1,22 +1,28 @@
-#include "Timer.h"
+//#include "Timer.h"
 #include "SerialHardware.h"
-#include "analog.h"
+//#include "analog.h"
+#include "math.h"
 
 int main(void)
 {
-	ADC adc(ADC1);
-	Serial2.Init(921600);
-	Serial2.println("test");
-	while (1)
-	{
-		float var = 0;
-		long start = micros();
-		var = adc.read(CH0);
-		Serial2.println("Stop:", micros() - start);
-		Serial2.println("Volt:", (var * (3.3 / 4095)) + 0.077);
+//  ADC adc(ADC1);
+//  adc.setChannel(ADC_CH0);
+//  adc.setChannel(ADC_CH1);
+//  adc.setChannel(ADC_CH4);
+//  adc.startConV();
+//  adc.setContMode(ON);
+  // adcDMA();
+//  adc.setDMA();
+  Serial2.Init(115200);
+  float t = 16;
+  Serial2.println("test", sqrt(t));
+  Serial2.println("test", t);
+  while (1)
+  {
+    //  uint32_t start = micros();
 
-		delayMillis(200);
-	}
-	return 0;
+    //  delayMillis(150);
+  }
+  return 0;
 }
 

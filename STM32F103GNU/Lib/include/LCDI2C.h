@@ -78,11 +78,11 @@ class LCD_I2C: public Printer
 		void WriteCmd(uint8_t);
 
 		void Clear();
-		void Cursor(uint8_t);
-		void Blink();
-		void CursorPos(uint8_t, uint8_t);
+    void setCursor(uint8_t on);
+    void setBlink();
+    void setPos(uint8_t, uint8_t);
 		void autoScroll(uint8_t);
-		void blackLight(const uint8_t);
+    void setBlackLight(const uint8_t);
 };
 
 #endif /* LCDI2C_H_ */
