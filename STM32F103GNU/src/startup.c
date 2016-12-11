@@ -7,7 +7,9 @@
 
 #ifndef STARTUP_C_
 #define STARTUP_C_
+
 #include "Timer.h"
+#include "define.h"
 
 void startup()
 {
@@ -16,5 +18,6 @@ void startup()
 	AFIO->MAPR |= AFIO_MAPR_SWJ_CFG_JTAGDISABLE; //0x‭2000000‬ disable JTAG
 
 }
+
 
 #endif /* STARTUP_C_ */
