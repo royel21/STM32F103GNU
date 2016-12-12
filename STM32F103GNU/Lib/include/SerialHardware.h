@@ -20,11 +20,12 @@ class SerialHardware: public Printer
   private:
     USART_TypeDef *USARTx;
     uint32_t usartClock;
-    char buff[BUFFSIZE];
-    volatile uint8_t head;
-    volatile uint8_t tail;
-    char endCode;
-    uint8_t ITenable;
+    char buff[BUFFSIZE] =
+      { };
+    volatile uint8_t head = 0;
+    volatile uint8_t tail = 0;
+    char endCode = 0;
+    uint8_t ITenable = 0;
   public:
     SerialHardware(USART_TypeDef *);
 

@@ -10,11 +10,6 @@
 int i = 0;
 SerialHardware::SerialHardware(USART_TypeDef *usart)
 {
-  ITenable = 0;
-  endCode = 0x00;
-  head = 0;
-  tail = 0;
-
   RCC->APB2ENR |= RCC_APB2ENR_AFIOEN;
   IRQn_Type it = USART2_IRQn;
 #ifdef USE_USART1
