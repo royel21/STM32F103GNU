@@ -35,7 +35,15 @@ extern "C" {
 #define ADC_C71_5                               ((uint8_t)0x06)
 #define ADC_C239_5                              ((uint8_t)0x07)
 
-
+/*ADC class read pin from GPIOA pin 0..7 and GPIOB pin 0,1
+ * are channel 0...9 this class can be use with or without DMA
+ * for use without DMA use read(ch) with the specific channel
+ * for to use dma
+ * first   set up multi-channel mode
+ * second  set the channel
+ * third   start the conversion
+ * four    get the data converted with getData(n) n = order 0 to last set up channel
+ */
 class ADC
 {
   private:
@@ -45,18 +53,22 @@ class ADC
     ADC_TypeDef *adc;
   public:
     ADC(ADC_TypeDef *ADC);
-
-    void setDMA();
-
+    //power on or off ADC peripheral
     void powerOn(uint8_t on);
-
-    void setContMode(uint8_t state);
-
-    uint16_t getdata(uint8_t ch);
-
-    void setChannel(uint8_t ch, uint8_t cicles = 0);
-
-    void startConV();
+    // set scan and continuous mode for dma
+    void setMultiChMode();
+    //get the data in multi-channel mode
+    uint16_t getData(uint8_t n);
+    /*set the channel to be read by DMA
+     * ch channel to use from 0..9
+     * cycles by default 1.5 adc cycles
+     */
+    void setChannel(uint8_t ch, uint8_t cycles = 0);
+    //start the conversion of for DMA mode
+    void startMultiCh();
+    /*read individual channel without DMA
+     * by the fault 1.5 cycles
+     */
     uint16_t read(uint8_t ch);
 };
 

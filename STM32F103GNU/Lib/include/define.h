@@ -50,6 +50,7 @@
 #define TIM_CCMR2_OC4PWM2   TIM_CCMR1_OC2PWM2
 
 #ifdef STM32F1
+
 #define MODE_IN                (uint8_t)0x00
 #define MODE_OUT_2MHZ          (uint8_t)0x02
 #define MODE_OUT_10MHZ         (uint8_t)0x01

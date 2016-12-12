@@ -43,28 +43,21 @@ void ADC::powerOn(uint8_t on)
   on ? adc->CR2 |= ADC_CR2_ADON : adc->CR2 &= ~ADC_CR2_ADON;
 }
 
-void ADC::setDMA()
+void ADC::setMultiChMode()
 {
-  RCC->AHBENR |= RCC_AHBENR_DMA1EN;
-  //DMA Config
-  DMA1_Channel1->CCR |= DMA_CCR1_CIRC | DMA_CCR1_MINC |
-  DMA_CCR_PSIZE_16bit | DMA_CCR1_MSIZE_0 | DMA_CCR_PL_VH;
-
-  DMA1_Channel1->CMAR = (uint32_t) &data;
-
-  DMA1_Channel1->CPAR = (uint32_t) &adc->DR;
-
-  adc->CR2 |= ADC_CR2_DMA;
-  //ADC Config
-  adc->CR1 |= ADC_CR1_SCAN;
+    //Set DMA
+    RCC->AHBENR |= RCC_AHBENR_DMA1EN;
+    DMA1_Channel1->CCR |= DMA_CCR1_CIRC | DMA_CCR1_MINC |
+    DMA_CCR_PSIZE_16bit | DMA_CCR1_MSIZE_0 | DMA_CCR_PL_VH;
+    DMA1_Channel1->CMAR = (uint32_t) &data;
+    DMA1_Channel1->CPAR = (uint32_t) &adc->DR;
+    //set ADC DMA MODE
+    adc->CR1 |= ADC_CR1_SCAN;
+    adc->CR2 |= ADC_CR2_CONT;
+    adc->CR2 |= ADC_CR2_DMA;
 }
 
-void ADC::setContMode(uint8_t state)
-{
-  state ? adc->CR2 |= ADC_CR2_CONT : adc->CR2 &= ~ADC_CR2_CONT;
-}
-
-void ADC::setChannel(uint8_t ch, uint8_t cicles)
+void ADC::setChannel(uint8_t ch, uint8_t cycles)
 {
   if (ch < 8)
   {
@@ -79,41 +72,32 @@ void ADC::setChannel(uint8_t ch, uint8_t cicles)
     adc->SQR2 |= ch << (size * 5);
     GPIOB->CRL &= ~(0xF << ((ch - 8) * 4));
   }
-  adc->SMPR2 &= ~(cicles << (ch * 3));
-  adc->SMPR2 |= cicles << (ch * 3);
+  adc->SMPR2 &= ~(cycles << (ch * 3));
+  adc->SMPR2 |= cycles << (ch * 3);
+  if (adc->CR2 & ADC_CR2_CONT)
   size++;
 }
 
-void ADC::startConV()
+void ADC::startMultiCh()
 {
-  adc->SQR1 = 0;
-  adc->SQR1 |= (size) << 20;
-  DMA1_Channel1->CNDTR = 0;
-  DMA1_Channel1->CNDTR = size + 1;
+  DMA1_Channel1->CNDTR = size;
   DMA1_Channel1->CCR |= DMA_CCR1_EN;
+  adc->SQR1 = (size - 1) << 20;
   adc->CR2 |= ADC_CR2_ADON;
   adc->CR2 |= ADC_CR2_SWSTART;
 }
 
+uint16_t ADC::getData(uint8_t n)
+{
+  return data[n];
+}
 uint16_t ADC::read(uint8_t ch)
 {
-    return data[ch];
-//  if (ch < 8)
-//  {
-//    RCC->APB2ENR |= RCC_APB2ENR_IOPAEN;
-//    GPIOA->CRL &= ~(0xF << (ch * 4));
-//  } else
-//  {
-//    RCC->APB2ENR |= RCC_APB2ENR_IOPBEN;
-//    GPIOB->CRL &= ~(0xF << ((ch - 8) * 4));
-//  }
-//  adc->SMPR2 = ADC_C1_5;
-//  adc->SQR3 = ch;
-//  adc->CR2 |= ADC_CR2_ADON;
-//  adc->CR2 |= ADC_CR2_SWSTART; //Start the conversion
-//  while (!(adc->SR & ADC_SR_EOC))
-//    ; //Processing the conversion
-//  adc->CR2 &= ~ADC_CR2_ADON;
-//  return adc->DR & 0x0fff;
+    setChannel(ch);
+    adc->CR2 |= ADC_CR2_ADON;
+    adc->CR2 |= ADC_CR2_SWSTART;
+    while (!(adc->SR & ADC_SR_EOC))
+      ;
+      return adc->DR & 0xFFF;
 }
 
