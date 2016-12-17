@@ -47,8 +47,9 @@ SerialHardware::SerialHardware(USART_TypeDef *usart)
     it = USART3_IRQn;
     RCC->APB1ENR |= RCC_APB1ENR_USART3EN;
     RCC->APB2ENR |= RCC_APB2ENR_IOPBEN;
-    GPIOB->CRL &= 0xFFFF00FF;
-    GPIOB->CRH |= ((MODE_OUT_50MHZ | CNF_OUT_AFPP ) << 1 * 4) | ((MODE_IN | CNF_IN_FLOAT ) << 2 * 4);
+		GPIOB->CRH &= 0xFFFF00FF;
+		GPIOB->CRH |= ((MODE_OUT_50MHZ | CNF_OUT_AFPP ) << 2 * 4)
+				| ((MODE_IN | CNF_IN_FLOAT ) << 3 * 4);
   }
 #endif
 
@@ -167,7 +168,7 @@ void SerialHardware::println(const char *str, double var)
 }
 
 #ifdef USE_USART1
-SerialHardware Serial1(USART1, P09 | P10, USART1);
+SerialHardware Serial1(USART1);
 extern "C" void USART1_IRQHandler()
 {
   if (USART1->SR & USART_SR_RXNE)
@@ -189,7 +190,7 @@ extern "C" void USART2_IRQHandler()
 #endif
 
 #ifdef USE_USART3
-SerialHardware Serial3(USART3, P02 | P03, USART3);
+SerialHardware Serial3(USART3);
 extern "C" void USART3_IRQHandler()
 {
   if (USART3->SR & USART_SR_RXNE)

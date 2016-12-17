@@ -9,7 +9,7 @@
 #define MACROSPIN_HPP_
 #include "cmsis_device.h"
 
-#define USE_USART2
+#define USE_USART3
 
 #define NOP						   asm("nop")
 
