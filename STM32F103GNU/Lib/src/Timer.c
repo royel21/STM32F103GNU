@@ -9,7 +9,6 @@
 #define NVIC_PriorityGroup_4         ((uint32_t)0x300)
 volatile uint32_t Millis;
 
-volatile uint32_t Micros;
 volatile uint8_t clock = 0;
 
 void Systick_Startup()
@@ -26,8 +25,7 @@ void Systick_Startup()
 
 uint32_t micros(void)
 {
-  Micros = Millis * 1000 + 1000 - SysTick->VAL / clock;
-  return Micros;
+  return (Millis * 1000) + ((1000 - SysTick->VAL) / clock);
 }
 
 uint32_t millis(void)
@@ -38,14 +36,14 @@ uint32_t millis(void)
 void delayMillis(uint32_t nTime)
 {
   uint32_t curTime = Millis;
-  while ((nTime - (Millis - curTime)) > 0)
+  while ((Millis - curTime) < nTime)
     ;
 }
 
 void delayMicros(uint32_t nTime)
 {
   uint32_t curTime = micros();
-  while ((int32_t) (nTime - (micros() - curTime)) > 0)
+  while ((micros() - curTime) < nTime)
     ;
 }
 
