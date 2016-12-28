@@ -8,7 +8,7 @@
 extern "C" {
 #endif
 
-void InterruptEnabler(IRQn_Type, uint16_t, uint16_t);
+void InterruptEnabler(IRQn_Type, uint16_t = 2, uint16_t = 2);
 
 void GPIO_Config(GPIO_TypeDef *port, const uint16_t pins, uint8_t mode, uint8_t cnf = 0);
 

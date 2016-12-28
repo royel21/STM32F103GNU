@@ -6,7 +6,7 @@
  */
 
 #include "I2CCOM.h"
-
+#include "SerialHardware.h"
 
 /*****I2C Flags*****/
 #define  I2C_ACK                  ((uint8_t)0)          /** I2C Write bit **/
@@ -22,9 +22,6 @@
 #define  I2C_EVENT_MBTXG          ((uint32_t)0x00070080) /* TRA, BUSY, MSL, TXE flags */
 /* --EV8_2 */
 #define  I2C_EVENT_MBTXD          ((uint32_t)0x00070084)  /* TRA, BUSY, MSL, TXE and BTF flags */
-
-
-
 
 I2CCOM::I2CCOM(I2C_TypeDef *i2c, uint32_t I2C_SPD, uint8_t remap)
 {
@@ -83,7 +80,6 @@ void I2CCOM::init()
 {
   //I2Cx->CR1 |= ;
 }
-
 
 /* Send the address to the i2c line to ready the Slave */
 uint8_t I2CCOM::Start(uint8_t addr, uint8_t direction)
@@ -262,28 +258,35 @@ void I2CCOM::hardReset()
   // Stop();
   uint32_t cr2 = I2Cx->CR2;
   uint32_t ccr = I2Cx->CCR;
-  I2Cx->CR1 |= I2C_CR1_SWRST;
+  I2Cx->CR1 = I2C_CR1_SWRST;
   I2Cx->CR1 &= ~I2C_CR1_SWRST;
+  while (I2Cx->CR1 & I2C_CR1_SWRST)
+    ;
   I2Cx->CR1 = I2C_CR1_ACK | I2C_CR1_PE;
   I2Cx->CR2 = cr2;
   I2Cx->CCR = ccr;
 }
 
-uint8_t I2CCOM::Scan()
+uint8_t I2CCOM::Scan(uint8_t i)
 {
-  for (uint8_t i = 37; i < 128; i++)
+  while (i++ < 128)
   {
     Start(i, I2C_WR);
-    if (I2Cx->SR1 & I2C_SR1_AF)
-    {
-      hardReset();
-    } else
+    while (!(I2Cx->SR1 & I2C_SR1_AF) && !(I2Cx->SR1 & I2C_SR1_TXE))
+      ;
+    if (I2Cx->SR1 & 0x82)
     {
       Stop();
-      return ++i;
+      return i;
+
+    } else
+    {
+      hardReset();
     }
+
   }
-  return 0;
+
+  return i;
 }
 
 void I2CCOM::pinToggle()

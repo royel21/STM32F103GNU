@@ -28,7 +28,7 @@ class I2CCOM
 	public:
 		I2CCOM(I2C_TypeDef *i2c, uint32_t I2C_SPD, uint8_t remap = 0);
 
-		uint8_t Scan();
+    uint8_t Scan(uint8_t = 1);
 		void init();
 		uint8_t Start(uint8_t, uint8_t);
 
