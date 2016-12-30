@@ -1,4 +1,4 @@
-#include "Timer.h"
+#include <SysTimer.h>
 #include "SerialHardware.h"
 #include "util.h"
 #include "I2CCOM.h"
@@ -73,16 +73,19 @@ extern "C" void EXTI15_10_IRQHandler(void)
 int main(void)
 {
   Serial2.Init(115200);
-  EXTI_Configuration(GPIOB, P10 | P11 | P12 | P13, EXTI_TRG_CHANGE);
-  //GPIO_Config(GPIOB, P12 | P13, MODE_OUT_50MHZ, CNF_OUT_PP);
+  //EXTI_Configuration(GPIOB, P10 | P11 | P12 | P13, EXTI_TRG_CHANGE);
+  GPIO_Config(GPIOC, P13, MODE_OUT_50MHZ, CNF_OUT_PP);
   //uint32_t lng = 4000000000;
   while (1)
   {
-
-    Serial2.print("A:", pulseOne);
-    Serial2.print(" B:", pulseTwo);
-    Serial2.print(" C:", pulseThree);
-    Serial2.println(" D:", pulseFour);
+    GPIOC->BSRR |= P13;
+    delayMicros(100000);
+    GPIOC->BRR |= P13;
+    delayMicros(100000);
+//    Serial2.print("A:", pulseOne);
+//    Serial2.print(" B:", pulseTwo);
+//    Serial2.print(" C:", pulseThree);
+//    Serial2.println(" D:", pulseFour);
 //    delayMillis(4);
 
     //Serial2.println("ADD:0x", I2CCom.Scan(0x69), HEX);

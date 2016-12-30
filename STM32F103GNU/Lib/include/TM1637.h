@@ -24,8 +24,8 @@
 #define __TM1637__
 
 #include <cmsis_device.h>
+#include <SysTimer.h>
 #include "util.h"
-#include "Timer.h"
 
 #define DOTON  (uint8_t)0x1
 #define DOTOFF (uint8_t)0x0

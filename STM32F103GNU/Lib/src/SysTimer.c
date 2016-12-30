@@ -5,7 +5,7 @@
  *      Author: RoyerAriel
  */
 
-#include "Timer.h"
+#include <SysTimer.h>
 #define NVIC_PriorityGroup_4         ((uint32_t)0x300)
 #define AIRCR_VECTKEY_MASK           ((uint32_t)0x05FA0000)
 

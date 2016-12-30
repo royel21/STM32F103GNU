@@ -8,7 +8,7 @@
 #ifndef STARTUP_C_
 #define STARTUP_C_
 
-#include "Timer.h"
+#include <SysTimer.h>
 #include "define.h"
 
 void startup()

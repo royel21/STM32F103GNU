@@ -9,7 +9,7 @@
 #define LCDI2C_H_
 
 #include <I2CCOM.h>
-#include "Timer.h"
+#include <SysTimer.h>
 #include "define.h"
 #include "Printer.h"
 

@@ -38,8 +38,8 @@ void TIM_PWM_Init(uint8_t frecuency)
 	 * OC2Mode PWM                          Bit13:1
 	 * OC2Mode PWM                          Bit14:1
 	 */
-	TIM1->CCMR1 |= TIM_CCMR1_OC1PE | TIM_CCMR1_OC1PWM1 | TIM_CCMR1_OC2PE
-			| TIM_CCMR1_OC2PWM1;
+//	TIM1->CCMR1 |= TIM_CCMR1_OC1PE | TIM_CCMR1_OC1PWM1 | TIM_CCMR1_OC2PE
+//			| TIM_CCMR1_OC2PWM1;
 
 	/*TIM1 capture/compare enable register
 	 * Channel 1                            Bit0:1

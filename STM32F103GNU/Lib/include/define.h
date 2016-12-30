@@ -40,15 +40,6 @@
 #define P14                     ((uint16_t)0x4000)
 #define P15                     ((uint16_t)0x8000)
 
-#define TIM_CCMR1_OC1PWM1   ((uint16_t)0x00000060)
-#define TIM_CCMR1_OC1PWM2   ((uint16_t)0x00000070)
-#define TIM_CCMR1_OC2PWM1   ((uint16_t)0x00006000)
-#define TIM_CCMR1_OC2PWM2   ((uint16_t)0x00007000)
-#define TIM_CCMR2_OC3PWM1   TIM_CCMR1_OC1PWM1
-#define TIM_CCMR2_OC3PWM2   TIM_CCMR1_OC1PWM2
-#define TIM_CCMR2_OC4PWM1   TIM_CCMR1_OC2PWM1
-#define TIM_CCMR2_OC4PWM2   TIM_CCMR1_OC2PWM2
-
 #ifdef STM32F1
 
 #define MODE_IN                (uint8_t)0x00
