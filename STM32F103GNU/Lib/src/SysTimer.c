@@ -5,17 +5,19 @@
  *      Author: RoyerAriel
  */
 
-#include <SysTimer.h>
+#include "SysTimer.h"
 #define NVIC_PriorityGroup_4         ((uint32_t)0x300)
 #define AIRCR_VECTKEY_MASK           ((uint32_t)0x05FA0000)
 
 volatile uint32_t t_Millis;
 volatile uint8_t clock;
-volatile uint32_t us;
+volatile uint32_t reload;
+
 void Systick_Startup()
 {
   clock = SystemCoreClock / 1000000;
-  if (SysTick_Config(SystemCoreClock / 1000)) //1ms per interrupt
+  reload = SystemCoreClock / 1000;
+  if (SysTick_Config(reload)) //1ms per interrupt
     while (1)
       ;
   //set systick interrupt priority
@@ -23,15 +25,6 @@ void Systick_Startup()
   NVIC_SetPriority(SysTick_IRQn, 0); //i want to make sure systick has highest priority amount all other interrupts
 }
 
-uint32_t micros(void)
-{
-  return t_Millis * 1000 + (1000 - (SysTick->VAL / clock));
-}
-
-uint32_t millis(void)
-{
-  return t_Millis;
-}
 
 void delayMillis(uint32_t nTime)
 {

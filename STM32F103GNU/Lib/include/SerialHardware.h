@@ -5,8 +5,9 @@
  *      Author: RoyerAriel
  */
 
-#ifndef SERIALHARDWARE_HPP_
-#define SERIALHARDWARE_HPP_
+#ifndef SERIALHARDWARE_H_
+#define SERIALHARDWARE_H_
+
 
 #include "cmsis_device.h"
 #include "define.h"
@@ -14,6 +15,8 @@
 #include "Util.h"
 
 #define BUFFSIZE 128
+
+
 
 class SerialHardware: public Printer
 {
@@ -75,5 +78,6 @@ extern SerialHardware Serial3;
 #ifdef USE_USART6
 extern SerialHardware Serial6;
 #endif
+
 
 #endif /* SERIALHARDWARE_HPP_ */

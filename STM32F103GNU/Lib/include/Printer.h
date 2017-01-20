@@ -12,11 +12,10 @@
 #include "define.h"
 
 
-
 class Printer {
 
 	public:
-    virtual void WriteByte(const char);
+    virtual void WriteByte(const char) = 0;
 		void print(char);
     void print(uint8_t, uint8_t base = DEC);
 		void print(int, uint8_t = DEC);
