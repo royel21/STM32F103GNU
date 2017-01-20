@@ -13,7 +13,7 @@
 
 #define RTC_SECOND      0x00
 #define RTC_MINUTE      0x01
-#define RTC_HOUR     	0x02
+#define RTC_HOUR     	  0x02
 #define RTC_WEEKDAY     0x03
 #define RTC_MONTHDAY    0x04
 #define RTC_MONTH       0x05
