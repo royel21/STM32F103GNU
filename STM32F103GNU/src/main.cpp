@@ -84,6 +84,7 @@ int main(void)
     {
       GPIOC->BSRR = P13;
     } else
+
       GPIOC->BRR = P13;
 //    Serial2.print("A:", pulseOne);
 //    Serial2.print(" B:", pulseTwo);
