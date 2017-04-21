@@ -91,6 +91,7 @@ uint16_t ADC::getData(uint8_t n)
 {
   return data[n];
 }
+
 uint16_t ADC::read(uint8_t ch)
 {
     setChannel(ch);

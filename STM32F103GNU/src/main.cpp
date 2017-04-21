@@ -71,15 +71,20 @@
 //uint32_t count = 0;
 int main(void)
 {
-  Serial2.Init(921600);
+  Serial2.Init(115200);
 //  //EXTI_Configuration(GPIOB, P10 | P11 | P12 | P13, EXTI_TRG_CHANGE);
-//  GPIO_Config(GPIOC, P13, MODE_OUT_50MHZ, CNF_OUT_PP);
+  GPIO_Config(GPIOC, P13, MODE_OUT_50MHZ, CNF_OUT_PP);
   //uint32_t lng = 4000000000;
   while (1)
   {
     long start = micros();
-    delayMicros(250000);
+    delayMicros(100000);
     Serial2.println(micros() - start);
+    if (GPIOC->IDR & P13)
+    {
+      GPIOC->BSRR = P13;
+    } else
+      GPIOC->BRR = P13;
 //    Serial2.print("A:", pulseOne);
 //    Serial2.print(" B:", pulseTwo);
 //    Serial2.print(" C:", pulseThree);
