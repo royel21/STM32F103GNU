@@ -12,8 +12,8 @@ int main(void)
   while (1)
   {
     long start = micros();
-    delayMicros(100000);
-    Serial2.println(micros() - start);
+    delayMicros(10000);
+    Serial2.println("Time:", micros() - start);
     if (GPIOC->IDR & P13)
     {
       GPIOC->BSRR = P13;
