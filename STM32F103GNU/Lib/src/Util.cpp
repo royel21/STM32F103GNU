@@ -8,7 +8,7 @@
 #include "misc.h"
 /*Configure the GPIO MODE and CNF + CLOCK
  * 1:GPIO PORT
- * 2:GPIO ORE PINS PXX | PXX
+ * 2:GPIO ORE PINS  EJ PXX | PXX
  * 3:GPIO Mode MODE_XX
  * 4:GPIO CNF
  */
